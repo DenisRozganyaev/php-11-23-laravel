@@ -4,8 +4,58 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5f5c1188fdb3c826c6462031c1853477",
+    "content-hash": "7c2f6e4f4ac1e22f109c60cf6f28fb59",
     "packages": [
+        {
+            "name": "appslabke/lara-izitoast",
+            "version": "v1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/AppsLab-KE/lara-izitoast.git",
+                "reference": "9636c4c3b28855c5d9c6169a10499f6b59568e0a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/AppsLab-KE/lara-izitoast/zipball/9636c4c3b28855c5d9c6169a10499f6b59568e0a",
+                "reference": "9636c4c3b28855c5d9c6169a10499f6b59568e0a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "LaraIzitoast\\LaraIzitoastServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "lara-izitoast/src/helpers.php"
+                ],
+                "psr-4": {
+                    "LaraIzitoast\\": "lara-izitoast/src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "MARVIN COLLINS",
+                    "email": "marvin@appslab.co.ke"
+                }
+            ],
+            "description": "Simplified wrapper for izitoast javascript notification library",
+            "support": {
+                "issues": "https://github.com/AppsLab-KE/lara-izitoast/issues",
+                "source": "https://github.com/AppsLab-KE/lara-izitoast/tree/v1.1.1"
+            },
+            "time": "2019-01-31T12:43:02+00:00"
+        },
         {
             "name": "brick/math",
             "version": "0.11.0",
@@ -1044,6 +1094,67 @@
                 }
             ],
             "time": "2023-12-03T19:50:20+00:00"
+        },
+        {
+            "name": "kyslik/column-sortable",
+            "version": "6.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Kyslik/column-sortable.git",
+                "reference": "80a7f053cf8e457be06d5fe59371f1b2b5cd8d03"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Kyslik/column-sortable/zipball/80a7f053cf8e457be06d5fe59371f1b2b5cd8d03",
+                "reference": "80a7f053cf8e457be06d5fe59371f1b2b5cd8d03",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "5.8.*|^6.0|^7.0|^8.0|^9.0|^10.0",
+                "illuminate/support": "5.8.*|^6.0|^7.0|^8.0|^9.0|^10.0",
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^5.0|^7.0|^8.0",
+                "phpunit/phpunit": "^8.5|^9.5.10"
+            },
+            "type": "package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Kyslik\\ColumnSortable\\ColumnSortableServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Kyslik\\ColumnSortable\\": "src/ColumnSortable/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Martin Kiesel",
+                    "email": "martin.kiesel@gmail.com",
+                    "role": "Developer and maintainer"
+                }
+            ],
+            "description": "Package for handling column sorting in Laravel 6.x",
+            "keywords": [
+                "column",
+                "laravel",
+                "sort",
+                "sortable",
+                "sorting"
+            ],
+            "support": {
+                "issues": "https://github.com/Kyslik/column-sortable/issues",
+                "source": "https://github.com/Kyslik/column-sortable/tree/6.5.0"
+            },
+            "time": "2023-02-17T09:46:34+00:00"
         },
         {
             "name": "laravel/framework",
