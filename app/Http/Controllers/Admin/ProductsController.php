@@ -7,6 +7,7 @@ use App\Http\Requests\Products\CreateProductRequest;
 use App\Http\Requests\Products\EditProductRequest;
 use App\Models\Category;
 use App\Models\Product;
+use App\Repositories\Contracts\ProductsRepositoryContract;
 use Illuminate\Http\Request;
 
 class ProductsController extends Controller
@@ -32,17 +33,11 @@ class ProductsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CreateProductRequest $request)
+    public function store(CreateProductRequest $request, ProductsRepositoryContract $repository)
     {
-        dd($request->validated());
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Product $product)
-    {
-        //
+        return $repository->create($request)
+            ? redirect()->route('admin.products.index')
+            : redirect()->back()->withInput();
     }
 
     /**

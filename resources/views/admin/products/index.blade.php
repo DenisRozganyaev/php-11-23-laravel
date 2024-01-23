@@ -20,7 +20,7 @@
             @foreach($products as $product)
                 <tr>
                     <td>{{$product->id}}</td>
-                    <td></td>
+                    <td><img src="{{$product->thumbnailUrl}}" alt="{{$product->title}}" width="75" height="100"></td>
                     <td>{{$product->title}}</td>
                     <td>{{$product->SKU}}</td>
                     <td></td>
