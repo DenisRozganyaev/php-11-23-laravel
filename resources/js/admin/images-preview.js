@@ -16,7 +16,6 @@ $(document).ready(() => {
 
             $(imagesSelectors.imagesWrapper).html('');
 
-            console.log('this.files', this.files)
             while (file = this.files[counter++]) {
                 const reader = new FileReader();
                 reader.onloadend = (function () {

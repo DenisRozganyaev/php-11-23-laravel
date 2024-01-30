@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Http\Requests\Products\CreateProductRequest;
+use App\Http\Requests\Products\EditProductRequest;
 use App\Models\Product;
 use App\Repositories\Contracts\ImageRepositoryContract;
 use Illuminate\Support\Facades\DB;
@@ -35,6 +36,31 @@ class ProductsRepository implements Contracts\ProductsRepositoryContract
         }
     }
 
+    public function update(Product $product, EditProductRequest $request): bool
+    {
+        try {
+            DB::beginTransaction();
+
+            $data = $this->formRequestData($request);
+
+            if ($data['attributes']['title'] && $data['attributes']['title'] !== $product->title) {
+                $data['attributes'] = $this->addSlugToAttributes($data['attributes']);
+            }
+
+            $product->update($data['attributes']);
+
+            $this->setProductData($product, $data);
+
+            DB::commit();
+
+            return true;
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            logs()->warning($exception);
+            return false;
+        }
+    }
+
     protected function setProductData(Product $product, array $data): void
     {
         if ($product->categories()->exists()) {
@@ -45,15 +71,17 @@ class ProductsRepository implements Contracts\ProductsRepositoryContract
             $product->categories()->attach($data['categories']);
         }
 
-        $this->imageRepo->attach(
-            $product,
-            'images',
-                $data['attributes']['images'] ?? [],
-            $product->slug
-        );
+        if (!empty($data['attributes']['images'])) {
+            $this->imageRepo->attach(
+                $product,
+                'images',
+                $data['attributes']['images'],
+                $product->slug
+            );
+        }
     }
 
-    protected function formRequestData(CreateProductRequest $request): array
+    protected function formRequestData(CreateProductRequest|EditProductRequest $request): array
     {
         return [
             'attributes' => collect($request->validated())->except(['categories'])->toArray(),

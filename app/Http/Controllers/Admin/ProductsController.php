@@ -45,15 +45,20 @@ class ProductsController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        $categories = Category::all();
+        $productCategories = $product->categories()->get()->pluck('id')->toArray();
+
+        return view('admin/products/edit', compact('product', 'categories', 'productCategories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(EditProductRequest $request, Product $product)
+    public function update(EditProductRequest $request, Product $product, ProductsRepositoryContract $repository)
     {
-        //
+        return $repository->update($product, $request)
+            ? redirect()->route('admin.products.edit', $product)
+            : redirect()->back()->withInput();
     }
 
     /**
@@ -61,6 +66,9 @@ class ProductsController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->categories()->detach();
+        $product->delete();
+
+        return redirect()->route('admin.products.index');
     }
 }
