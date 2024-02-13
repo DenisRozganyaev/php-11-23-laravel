@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace App\Http\Controllers;
 
 use App\Repositories\Contracts\ImageRepositoryContract;
 use App\Repositories\Contracts\ProductsRepositoryContract;

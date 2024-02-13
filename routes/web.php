@@ -41,3 +41,7 @@ Route::name('cart.')->prefix('cart')->group(function() {
    Route::delete('/', [\App\Http\Controllers\CartController::class, 'remove'])->name('remove');
    Route::post('{product}/count', [\App\Http\Controllers\CartController::class, 'countUpdate'])->name('count.update');
 });
+
+Route::middleware(['auth'])->group(function() {
+    Route::get('checkout', \App\Http\Controllers\CheckoutController::class)->name('checkout');
+});
