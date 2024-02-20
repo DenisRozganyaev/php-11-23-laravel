@@ -14,7 +14,7 @@ class EditProductRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return auth()->user()->can(config('permission.permissions.products.publish'));
+        return auth()->user()->can(config('permission.permissions.products.edit'));
     }
 
     /**
