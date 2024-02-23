@@ -12,7 +12,6 @@ class HomeController extends Controller
         $categories = Category::take(6)->get();
         $products = Product::with(['categories'])
             ->orderByDesc('id')
-            ->available()
             ->take(8)
             ->get();
 
