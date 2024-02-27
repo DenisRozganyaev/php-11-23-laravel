@@ -16,10 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('test', function() {
-    $user = auth()->user();
-    $product = Product::find(41);
-
-    dd($user->wishes()->where('product_id', $product->id)->wherePivot('exist', false)->exists());
+    \App\Events\UserNotify::dispatch('test message');
 });
 Route::get('/', \App\Http\Controllers\HomeController::class)->name('home');
 
@@ -61,6 +58,7 @@ Route::middleware(['auth'])->group(function() {
     Route::get('invoices/{order}', \App\Http\Controllers\InvoiceController::class)->name('invoice');
     Route::post('wishlist/{product}', [\App\Http\Controllers\WishListController::class, 'add'])->name('wishlist.add');
     Route::delete('wishlist/{product}', [\App\Http\Controllers\WishListController::class, 'remove'])->name('wishlist.remove');
+    Route::get('account/wishlist', \App\Http\Controllers\Account\WishlistController::class)->name('account.wishlist');
 });
 
 Route::name('callbacks.')->prefix('callback')->group(function() {

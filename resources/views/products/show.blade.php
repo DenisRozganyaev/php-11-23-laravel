@@ -48,20 +48,28 @@
                         </div>
                     </div>
                     <p class="mb-2">Quantity: {{ $product->quantity }}</p>
-                    <div class="d-flex justify-content-end w-100 align-items-center">
-                        @if (!auth()->user()->isWishedProduct($product))
-                            @include('products.parts.wishlist.price', ['product' => $product])
-                        @else
-
-                        @endif
-                        @if (!auth()->user()->isWishedProduct($product, 'exist'))
-                            @include('products.parts.wishlist.exists', ['product' => $product])
-                        @else
-
-                        @endif
-                    </div>
+                    @auth()
+                        <div class="d-flex justify-content-end w-100 align-items-center">
+                            @include(
+                                'products.parts.wishlist.price',
+                                [
+                                    'product' => $product,
+                                    'isFollowed' => auth()->user()->isWishedProduct($product),
+                                    'minimized' => false
+                                ]
+                            )
+                            @include(
+                                'products.parts.wishlist.exists',
+                                [
+                                    'product' => $product,
+                                    'isFollowed' => auth()->user()->isWishedProduct($product, 'exist'),
+                                    'minimized' => false
+                                ]
+                            )
+                        </div>
+                    @endauth
                     <div class="d-flex justify-content-end w-100 align-items-center price-container">
-                        <h5 class="me-2 mb-0">{{$product->price}}$</h5>
+                        <h5 class="me-2 mb-0">{{$product->finalPrice}}$</h5>
                         @if($product->isExists)
                             @if($isInCart)
                                 @include('cart.parts.remove_button', ['product' => $product, 'rowId' => $rowId])
