@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\Order;
-use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,7 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('test', function() {
-    \App\Events\UserNotify::dispatch('test message');
+    $user = \App\Models\User::find(1);
+    \App\Events\UserNotify::dispatch($user, 'test message for user = ' . $user->id);
 });
 Route::get('/', \App\Http\Controllers\HomeController::class)->name('home');
 
