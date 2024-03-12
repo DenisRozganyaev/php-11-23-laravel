@@ -51,6 +51,7 @@
                             @role('admin')
                             <a href="{{route('admin.dashboard')}}" class="dropdown-item">Admin Panel</a>
                             @endrole
+                            <a href="{{route('account.wishlist')}}" class="dropdown-item">Wish List</a>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
