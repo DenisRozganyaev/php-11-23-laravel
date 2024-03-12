@@ -12,14 +12,14 @@ class AuthController extends Controller
     public function __invoke(Request $request)
     {
         $data = $request->validate([
-            'email' => ['required', 'string', 'email', 'max:255', 'exists:' . User::class . ',email'],
+            'email' => ['required', 'string', 'email', 'max:255', 'exists:'.User::class.',email'],
             'password' => ['required', 'string', Password::defaults()],
         ]);
 
-        if (!auth()->attempt($data)) {
+        if (! auth()->attempt($data)) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Invalid Credentials'
+                'message' => 'Invalid Credentials',
             ], 422);
         }
 
@@ -31,10 +31,10 @@ class AuthController extends Controller
         );
 
         return response()->json([
-           'status' => 'success',
-           'data' => [
-               'token' => $token->plainTextToken
-           ]
+            'status' => 'success',
+            'data' => [
+                'token' => $token->plainTextToken,
+            ],
         ]);
     }
 }

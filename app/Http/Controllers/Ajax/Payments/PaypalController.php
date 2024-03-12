@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Ajax\Payments;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateOrderRequest;
 use App\Services\Contract\PaypalServiceContract;
-use Illuminate\Http\Request;
 
 class PaypalController extends Controller
 {

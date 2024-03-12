@@ -25,10 +25,10 @@ class ProductResource extends JsonResource
                 'old' => $this->price,
                 'new' => $this->new_price,
                 'discount' => $this->discount,
-                'final' => $this->finalPrice
+                'final' => $this->finalPrice,
             ],
             'categories' => new CategoriesCollection($this->categories),
-            'images' => new ImageCollection($this->images)
+            'images' => new ImageCollection($this->images),
         ];
     }
 }

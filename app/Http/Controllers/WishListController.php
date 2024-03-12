@@ -24,13 +24,14 @@ class WishListController extends Controller
         auth()->user()->removeFromWish($product, $data['type']);
 
         notify()->success('Product was removed from your wish list', position: 'topRight');
+
         return redirect()->back();
     }
 
     protected function validateRequest(Request $request): array
     {
         return $request->validate([
-            'type' => ['required', Rule::In(['price', 'exist'])]
+            'type' => ['required', Rule::In(['price', 'exist'])],
         ]);
     }
 }

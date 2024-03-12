@@ -3,7 +3,6 @@
 namespace App\Jobs\Products;
 
 use App\Models\Product;
-use App\Models\User;
 use App\Notifications\ProductExistsNotification;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;

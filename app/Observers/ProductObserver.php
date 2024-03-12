@@ -5,11 +5,7 @@ namespace App\Observers;
 use App\Jobs\Products\ExistsJob;
 use App\Jobs\Products\PriceDownJob;
 use App\Models\Product;
-use App\Models\User;
-use App\Notifications\PriceDownNotification;
 use App\Services\Contract\FileStorageServiceContract;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 
 class ProductObserver

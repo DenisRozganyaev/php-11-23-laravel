@@ -7,7 +7,6 @@ use App\Models\User;
 use App\Notifications\AdminCreatedOrderNotification;
 use App\Notifications\CustomerOrderNotification;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -31,9 +30,9 @@ class OrderCreateNotifyJob implements ShouldQueue
      */
     public function handle(): void
     {
-        logs()->info(__CLASS__ . ": Notify customer");
+        logs()->info(__CLASS__.': Notify customer');
         $this->order->notify(app()->make(CustomerOrderNotification::class));
-        logs()->info(__CLASS__ . ": Notify admins");
+        logs()->info(__CLASS__.': Notify admins');
         Notification::send(
             User::role('admin')->get(),
             app()->make(AdminCreatedOrderNotification::class, ['order' => $this->order])

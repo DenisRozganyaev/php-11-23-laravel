@@ -8,7 +8,6 @@ use App\Models\User;
 use Database\Seeders\PermissionAndRolesSeeder;
 use Database\Seeders\UsersSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class CategoriesTest extends TestCase
@@ -57,7 +56,7 @@ class CategoriesTest extends TestCase
         $response->assertStatus(302);
         $response->assertRedirectToRoute('admin.categories.index');
         $this->assertDatabaseHas(Category::class, [
-           'name' => $data['name']
+            'name' => $data['name'],
         ]);
     }
 
@@ -71,7 +70,7 @@ class CategoriesTest extends TestCase
         $response->assertStatus(302);
         $response->assertSessionHasErrors(['name' => 'Should be more than 1 symbol']);
         $this->assertDatabaseMissing(Category::class, [
-           'name' => $data['name']
+            'name' => $data['name'],
         ]);
     }
 
@@ -83,7 +82,7 @@ class CategoriesTest extends TestCase
         $response = $this->actingAs($this->getUser())
             ->put(route('admin.categories.update', $category), [
                 'name' => $category->name,
-                'parent_id' => $parent->id
+                'parent_id' => $parent->id,
             ]);
 
         $response->assertStatus(302);
@@ -99,7 +98,7 @@ class CategoriesTest extends TestCase
         $category = Category::factory()->create();
 
         $this->assertDatabaseHas(Category::class, [
-            'id' => $category->id
+            'id' => $category->id,
         ]);
 
         $response = $this->actingAs($this->getUser())
@@ -109,7 +108,7 @@ class CategoriesTest extends TestCase
         $response->assertRedirectToRoute('admin.categories.index');
 
         $this->assertDatabaseMissing(Category::class, [
-            'id' => $category->id
+            'id' => $category->id,
         ]);
     }
 

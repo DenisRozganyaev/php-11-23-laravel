@@ -10,7 +10,6 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 
 class OrderRepository implements Contracts\OrderRepositoryContract
 {
-
     public function create(array $data): Order|bool
     {
         $status = OrderStatus::default()->first();
@@ -26,7 +25,7 @@ class OrderRepository implements Contracts\OrderRepositoryContract
         $order = Order::where('vendor_order_id', $vendorOrderId)->firstOrFail();
         $order->transaction()->create([
             'payment_system' => $system->value,
-            'status' => $status->value
+            'status' => $status->value,
         ]);
 
         $statusObj = match ($status->value) {
@@ -36,7 +35,7 @@ class OrderRepository implements Contracts\OrderRepositoryContract
         };
 
         $order->update([
-            'status_id' => $statusObj->id
+            'status_id' => $statusObj->id,
         ]);
 
         return $order;
@@ -50,12 +49,12 @@ class OrderRepository implements Contracts\OrderRepositoryContract
             $order->products()->attach($product, [
                 'quantity' => $item->qty,
                 'single_price' => $item->price,
-                'name' => $product->title
+                'name' => $product->title,
             ]);
 
             $quantity = $product->quantity - $item->qty;
 
-            if (!$product->update(compact('quantity'))) {
+            if (! $product->update(compact('quantity'))) {
                 throw new \Exception("Smth went wrong with quantity update on product [id: {$item->id}]");
             }
         });

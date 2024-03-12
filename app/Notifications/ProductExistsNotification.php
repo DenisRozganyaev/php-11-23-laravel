@@ -4,7 +4,6 @@ namespace App\Notifications;
 
 use App\Models\Product;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
@@ -36,7 +35,7 @@ class ProductExistsNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->line('Hey, ' . $notifiable->name . ' ' . $notifiable->surname)
+            ->line('Hey, '.$notifiable->name.' '.$notifiable->surname)
             ->line("Product which you've added to wishlist")
             ->line($this->product->title)
             ->line('Already in our store!')

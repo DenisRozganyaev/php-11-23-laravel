@@ -13,10 +13,11 @@ class JoinTelegramCallback extends Controller
         $data = $validator->validate($request);
 
         auth()->user()->update([
-            'telegram_id' => $data->getId()
+            'telegram_id' => $data->getId(),
         ]);
 
         notify()->success('You were added to our telegram bot', position: 'topRight');
+
         return redirect()->route('admin.dashboard');
     }
 }

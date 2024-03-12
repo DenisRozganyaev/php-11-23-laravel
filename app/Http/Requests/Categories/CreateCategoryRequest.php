@@ -18,7 +18,7 @@ class CreateCategoryRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.min' => 'Should be more than 1 symbol'
+            'name.min' => 'Should be more than 1 symbol',
         ];
     }
 
@@ -30,8 +30,8 @@ class CreateCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'min:2', 'max:50', 'unique:' . Category::class],
-            'parent_id' => ['nullable', 'numeric', 'exists:'. Category::class .',id']
+            'name' => ['required', 'string', 'min:2', 'max:50', 'unique:'.Category::class],
+            'parent_id' => ['nullable', 'numeric', 'exists:'.Category::class.',id'],
         ];
     }
 }

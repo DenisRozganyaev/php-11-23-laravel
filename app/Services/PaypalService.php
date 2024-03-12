@@ -33,17 +33,17 @@ class PaypalService implements Contract\PaypalServiceContract
                     [
                         'amount' => [
                             'currency_code' => config('paypal.currency'),
-                            'value' => $total
-                        ]
-                    ]
-                ]
+                            'value' => $total,
+                        ],
+                    ],
+                ],
             ]);
 
             $request = array_merge(
                 $request->validated(),
                 [
                     'vendor_order_id' => $paypalOrder['id'],
-                    'total' => $total
+                    'total' => $total,
                 ]
             );
 
@@ -54,6 +54,7 @@ class PaypalService implements Contract\PaypalServiceContract
             return response()->json($order);
         } catch (\Exception $exception) {
             DB::rollBack();
+
             return $this->errorHandler($exception);
         }
     }
@@ -76,6 +77,7 @@ class PaypalService implements Contract\PaypalServiceContract
             return response()->json($result);
         } catch (\Exception $exception) {
             DB::rollBack();
+
             return $this->errorHandler($exception);
         }
     }
@@ -83,14 +85,15 @@ class PaypalService implements Contract\PaypalServiceContract
     protected function errorHandler(\Exception $exception)
     {
         logs()->warning($exception);
+
         return response()->json(['error' => $exception->getMessage()], 422);
     }
 
     protected function convertedStatus(string $status): TransactionStatus
     {
-        return match($status) {
-            "COMPLETED", "APPROVED" => TransactionStatus::Success,
-            "CREATED", "SAVED" => TransactionStatus::Pending,
+        return match ($status) {
+            'COMPLETED', 'APPROVED' => TransactionStatus::Success,
+            'CREATED', 'SAVED' => TransactionStatus::Pending,
             default => TransactionStatus::Canceled
         };
     }

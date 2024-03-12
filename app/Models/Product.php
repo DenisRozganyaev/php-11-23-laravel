@@ -31,13 +31,13 @@ class Product extends Model
         return $this->morphMany(Image::class, 'imageable');
     }
 
-    public function followers():BelongsToMany
+    public function followers(): BelongsToMany
     {
         return $this->belongsToMany(
-          User::class,
-          'wish_list',
-          'product_id',
-          'user_id'
+            User::class,
+            'wish_list',
+            'product_id',
+            'user_id'
         );
     }
 
@@ -49,14 +49,14 @@ class Product extends Model
     public function thumbnailUrl(): Attribute
     {
         return Attribute::make(
-            get: function() {
+            get: function () {
                 $key = "products.thumbnail.{$this->attributes['thumbnail']}";
 
-                if (!Storage::has($this->attributes['thumbnail'])) {
+                if (! Storage::has($this->attributes['thumbnail'])) {
                     return $this->attributes['thumbnail'];
                 }
 
-                if (!Cache::has($key)) {
+                if (! Cache::has($key)) {
                     $link = Storage::temporaryUrl($this->attributes['thumbnail'], now()->addMinutes(10));
                     Cache::put($key, $link, 570);
                 }
@@ -70,7 +70,7 @@ class Product extends Model
     {
         $fileStorage = app(FileStorageServiceContract::class);
 
-        if (!empty($this->attributes['thumbnail'])) {
+        if (! empty($this->attributes['thumbnail'])) {
             $fileStorage->remove($this->attributes['thumbnail']);
         }
 
@@ -84,15 +84,15 @@ class Product extends Model
     public function finalPrice(): Attribute
     {
         return Attribute::make(
-            get: fn() => round(($this->attributes['new_price'] && $this->attributes['new_price'] > 0 ? $this->attributes['new_price'] : $this->attributes['price']), 2)
+            get: fn () => round(($this->attributes['new_price'] && $this->attributes['new_price'] > 0 ? $this->attributes['new_price'] : $this->attributes['price']), 2)
         );
     }
 
     public function discount(): Attribute
     {
         return Attribute::make(
-            get: function() {
-                if (!$this->attributes['new_price'] || $this->attributes['new_price'] === 0) {
+            get: function () {
+                if (! $this->attributes['new_price'] || $this->attributes['new_price'] === 0) {
                     return null;
                 }
                 $result = ($this->attributes['price'] - $this->attributes['new_price']) / ($this->attributes['price'] / 100);
@@ -104,6 +104,6 @@ class Product extends Model
 
     public function isExists(): Attribute
     {
-        return Attribute::get(fn() => $this->attributes['quantity'] > 0);
+        return Attribute::get(fn () => $this->attributes['quantity'] > 0);
     }
 }

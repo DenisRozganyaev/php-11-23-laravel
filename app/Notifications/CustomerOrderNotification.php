@@ -43,17 +43,17 @@ class CustomerOrderNotification extends Notification
 
         return (new MailMessage)
             ->greeting("Hello, $order->name $order->surname")
-            ->line("Your order was created")
+            ->line('Your order was created')
             ->lineIf(
                 $order->status->name->value === OrderStatus::Paid->value,
-                "And successfully paid!"
+                'And successfully paid!'
             )
             ->line('You can see your order details inside attached file')
             ->attach(
                 Storage::disk('public')->path($invoice->filename),
                 [
                     'as' => $invoice->filename,
-                    'mime' => 'application/pdf'
+                    'mime' => 'application/pdf',
                 ]
             );
     }
