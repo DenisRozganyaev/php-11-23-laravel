@@ -12,7 +12,7 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
 
-        // some comment
+        // some comment 123123
         $this->withoutVite();
     }
 }
