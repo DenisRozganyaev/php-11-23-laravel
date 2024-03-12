@@ -4,7 +4,6 @@ namespace Tests\Feature\Admin;
 
 use App\Models\Product;
 use App\Models\User;
-use App\Services\Contract\FileStorageServiceContract;
 use App\Services\FileStorageService;
 use Database\Seeders\PermissionAndRolesSeeder;
 use Database\Seeders\UsersSeeder;
@@ -17,7 +16,7 @@ use Tests\TestCase;
 
 class ProductsTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, WithFaker;
 
     protected function setUp(): void
     {
@@ -40,28 +39,21 @@ class ProductsTest extends TestCase
             ['thumbnail' => $file]
         );
 
-        $this->instance(
-            FileStorageServiceContract::class,
-            Mockery::mock(
-                FileStorageService::class,
-                function (MockInterface $mock) use ($file) {
-                    $mock->shouldReceive('upload')
-                        ->with($file, '')
-                        ->once()
-                        ->andReturn('image_uploaded.png');
-                })
+        $this->mock(
+            FileStorageService::class,
+            function (MockInterface $mock) {
+                $mock->shouldReceive('upload')
+                    ->andReturn('image_uploaded.png');
+            }
         );
 
-        $response = $this->actingAs(User::role('admin')->first())
+        $this->actingAs(User::role('admin')->first())
             ->post(route('admin.products.store'), $data);
 
 
         $this->assertDatabaseHas(Product::class, [
-            'title' => $data['title']
+            'title' => $data['title'],
+            'thumbnail' => 'image_uploaded.png'
         ]);
-//        $product = Product::where('title', $data['title'])->first();
-//        dump($product->title);
-//        dump($product->thumbnail);
-//        $this->assertTrue(\Storage::has($product->thumbnail));
     }
 }
