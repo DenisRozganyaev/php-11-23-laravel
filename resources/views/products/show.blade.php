@@ -4,7 +4,7 @@
     <div class="container mt-5">
         <div class="row row-cols-1 row-cols-sm-2 g-2 mb-5">
             <div class="col col-sm-4">
-{{--                <img src="{{$product->thumbnailUrl}}" alt="{{$product->title}}" class="w-100"/>--}}
+                {{--                <img src="{{$product->thumbnailUrl}}" alt="{{$product->title}}" class="w-100"/>--}}
                 <div id="carouselExampleIndicators" class="carousel slide">
                     <div class="carousel-indicators">
                         @foreach($gallery as $key => $image)
@@ -23,11 +23,13 @@
                             </div>
                         @endforeach
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                            data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Previous</span>
                     </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                            data-bs-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Next</span>
                     </button>
@@ -46,12 +48,26 @@
                         </div>
                     </div>
                     <p class="mb-2">Quantity: {{ $product->quantity }}</p>
+                    <div class="d-flex justify-content-end w-100 align-items-center">
+                        @if (!auth()->user()->isWishedProduct($product))
+                            @include('products.parts.wishlist.price', ['product' => $product])
+                        @else
+
+                        @endif
+                        @if (!auth()->user()->isWishedProduct($product, 'exist'))
+                            @include('products.parts.wishlist.exists', ['product' => $product])
+                        @else
+
+                        @endif
+                    </div>
                     <div class="d-flex justify-content-end w-100 align-items-center price-container">
                         <h5 class="me-2 mb-0">{{$product->price}}$</h5>
-                        @if($isInCart)
-                            @include('cart.parts.remove_button', ['product' => $product, 'rowId' => $rowId])
-                        @else
-                            @include('cart.parts.add_button', ['product' => $product])
+                        @if($product->isExists)
+                            @if($isInCart)
+                                @include('cart.parts.remove_button', ['product' => $product, 'rowId' => $rowId])
+                            @else
+                                @include('cart.parts.add_button', ['product' => $product])
+                            @endif
                         @endif
                     </div>
                 </div>

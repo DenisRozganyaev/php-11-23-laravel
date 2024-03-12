@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,11 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('event', function() {
-   $order = Order::all()->last();
-   \App\Events\OrderCreated::dispatch($order);
-});
+Route::get('test', function() {
+    $user = auth()->user();
+    $product = Product::find(41);
 
+    dd($user->wishes()->where('product_id', $product->id)->wherePivot('exist', false)->exists());
+});
 Route::get('/', \App\Http\Controllers\HomeController::class)->name('home');
 
 Route::resource('products', \App\Http\Controllers\ProductsController::class)->only(['index', 'show']);
@@ -57,4 +59,12 @@ Route::middleware(['auth'])->group(function() {
     Route::get('checkout', \App\Http\Controllers\CheckoutController::class)->name('checkout');
     Route::get('orders/{order}/paypal/thank-you', \App\Http\Controllers\Orders\PaypalController::class);
     Route::get('invoices/{order}', \App\Http\Controllers\InvoiceController::class)->name('invoice');
+    Route::post('wishlist/{product}', [\App\Http\Controllers\WishListController::class, 'add'])->name('wishlist.add');
+    Route::delete('wishlist/{product}', [\App\Http\Controllers\WishListController::class, 'remove'])->name('wishlist.remove');
+});
+
+Route::name('callbacks.')->prefix('callback')->group(function() {
+    Route::get('telegram', \App\Http\Controllers\Callbacks\JoinTelegramCallback::class)
+        ->middleware(['role:admin'])
+        ->name('telegram');
 });
