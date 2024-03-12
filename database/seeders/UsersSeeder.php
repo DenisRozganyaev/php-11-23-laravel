@@ -16,7 +16,7 @@ class UsersSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('users')->truncate();
+        DB::table('users')->delete();
 
         if (! User::where('email', self::ADMIN_EMAIL)->exists()) {
             (User::factory()->withEmail(self::ADMIN_EMAIL)->create())

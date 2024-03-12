@@ -10,15 +10,18 @@ use Tests\TestCase;
 class FileStorageServiceTest extends TestCase
 {
     protected FileStorageServiceContract $service;
+
     protected function setUp(): void
     {
         parent::setUp();
+
         $this->service = app(FileStorageServiceContract::class);
     }
 
     public function test_file_upload(): void
     {
         $filePath = $this->uploadFile();
+
         $this->assertTrue(Storage::has($filePath));
         $this->assertEquals(Storage::getVisibility($filePath), 'public');
     }
@@ -46,6 +49,7 @@ class FileStorageServiceTest extends TestCase
     protected function uploadFile($fileName = 'image.png', $additionPath = ''): string
     {
         $file = UploadedFile::fake()->image($fileName);
+
         return $this->service->upload($file, $additionPath);
     }
 }

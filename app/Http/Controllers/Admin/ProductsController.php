@@ -8,7 +8,6 @@ use App\Http\Requests\Products\EditProductRequest;
 use App\Models\Category;
 use App\Models\Product;
 use App\Repositories\Contracts\ProductsRepositoryContract;
-use Illuminate\Http\Request;
 
 class ProductsController extends Controller
 {
@@ -18,6 +17,7 @@ class ProductsController extends Controller
     public function index()
     {
         $products = Product::with('categories')->sortable()->paginate(10);
+
         return view('admin/products/index', compact('products'));
     }
 
@@ -27,6 +27,7 @@ class ProductsController extends Controller
     public function create()
     {
         $categories = Category::all();
+
         return view('admin/products/create', compact('categories'));
     }
 

@@ -12,7 +12,6 @@ use LaravelDaily\Invoices\Invoice;
 
 class InvoicesService implements Contract\InvoicesServiceContract
 {
-
     public function generate(Order $order): Invoice
     {
         $order->loadMissing(['user', 'transaction', 'products']);
@@ -27,8 +26,8 @@ class InvoicesService implements Contract\InvoicesServiceContract
                 'email' => $order->email,
                 'phone' => $order->phone,
                 'city' => $order->city,
-                'address' => $order->address
-            ]
+                'address' => $order->address,
+            ],
         ]);
 
         $invoice = Invoice::make('receipt')
@@ -55,7 +54,7 @@ class InvoicesService implements Contract\InvoicesServiceContract
     {
         $items = [];
 
-        foreach($products as $product) {
+        foreach ($products as $product) {
             $items[] = (new InvoiceItem())
                 ->title($product->title)
                 ->pricePerUnit($product->pivot->single_price)

@@ -12,7 +12,9 @@ class AdminCreatedOrderNotification extends Notification
 {
     use Queueable;
 
-    public function __construct(public Order $order){}
+    public function __construct(public Order $order)
+    {
+    }
 
     public function via(object $notifiable): array
     {
@@ -25,7 +27,7 @@ class AdminCreatedOrderNotification extends Notification
 
         return (new MailMessage)
             ->greeting("Hello, $notifiable->name $notifiable->surname")
-            ->line("There is a new order on the website");
+            ->line('There is a new order on the website');
     }
 
     public function toTelegram(object $notifiable)
@@ -35,9 +37,9 @@ class AdminCreatedOrderNotification extends Notification
 
         return TelegramMessage::create()
             ->to($notifiable->telegram_id)
-            ->content("Hello there!")
-            ->line("There is a new order on the website")
-            ->line("Check it in admin panel!")
+            ->content('Hello there!')
+            ->line('There is a new order on the website')
+            ->line('Check it in admin panel!')
             ->button('Go to dashboard', $url);
     }
 }

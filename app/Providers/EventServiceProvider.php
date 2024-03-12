@@ -27,14 +27,14 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
         \Illuminate\Auth\Events\Logout::class => [
-            UserLogoutListener::class
-        ] ,
+            UserLogoutListener::class,
+        ],
         \Illuminate\Auth\Events\Login::class => [
-            UserLoginListener::class
+            UserLoginListener::class,
         ],
         OrderCreated::class => [
-            OrderCreatedNotificationListener::class
-        ]
+            OrderCreatedNotificationListener::class,
+        ],
     ];
 
     protected $observers = [

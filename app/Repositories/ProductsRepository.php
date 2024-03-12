@@ -32,6 +32,7 @@ class ProductsRepository implements Contracts\ProductsRepositoryContract
         } catch (\Exception $exception) {
             DB::rollBack();
             logs()->warning($exception);
+
             return false;
         }
     }
@@ -57,6 +58,7 @@ class ProductsRepository implements Contracts\ProductsRepositoryContract
         } catch (\Exception $exception) {
             DB::rollBack();
             logs()->warning($exception);
+
             return false;
         }
     }
@@ -67,11 +69,11 @@ class ProductsRepository implements Contracts\ProductsRepositoryContract
             $product->categories()->detach();
         }
 
-        if (!empty($data['categories'])) {
+        if (! empty($data['categories'])) {
             $product->categories()->attach($data['categories']);
         }
 
-        if (!empty($data['attributes']['images'])) {
+        if (! empty($data['attributes']['images'])) {
             $this->imageRepo->attach(
                 $product,
                 'images',
@@ -85,7 +87,7 @@ class ProductsRepository implements Contracts\ProductsRepositoryContract
     {
         return [
             'attributes' => collect($request->validated())->except(['categories'])->toArray(),
-            'categories' => $request->get('categories', [])
+            'categories' => $request->get('categories', []),
         ];
     }
 

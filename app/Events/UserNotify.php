@@ -3,10 +3,8 @@
 namespace App\Events;
 
 use App\Models\User;
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithBroadcasting;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
@@ -14,7 +12,7 @@ use Illuminate\Queue\SerializesModels;
 
 class UserNotify implements ShouldBroadcast
 {
-    use Dispatchable, SerializesModels, InteractsWithBroadcasting, InteractsWithSockets;
+    use Dispatchable, InteractsWithBroadcasting, InteractsWithSockets, SerializesModels;
 
     public function __construct(public User $user, public string $message)
     {
@@ -29,7 +27,7 @@ class UserNotify implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('App.Models.User.' . $this->user->id),
+            new PrivateChannel('App.Models.User.'.$this->user->id),
         ];
     }
 }

@@ -27,7 +27,7 @@ class EditCategoryRequest extends FormRequest
 
         return [
             'name' => ['required', 'string', 'min:2', 'max:50', Rule::unique(Category::class, 'name')->ignore($categoryId)],
-            'parent_id' => ['nullable', 'numeric', 'exists:'. Category::class .',id']
+            'parent_id' => ['nullable', 'numeric', 'exists:'.Category::class.',id'],
         ];
     }
 }

@@ -71,7 +71,7 @@ class User extends Authenticatable
         'phone',
         'birthdate',
         'password',
-        'telegram_id'
+        'telegram_id',
     ];
 
     /**
@@ -99,7 +99,7 @@ class User extends Authenticatable
         return $this->hasMany(Order::class);
     }
 
-    public function wishes():BelongsToMany
+    public function wishes(): BelongsToMany
     {
         return $this->belongsToMany(
             Product::class,
