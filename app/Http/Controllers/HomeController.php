@@ -2,25 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Product;
+
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function __invoke()
     {
-        $this->middleware('auth');
-    }
+        $categories = Category::take(6)->get();
+        $products = Product::with(['categories'])
+            ->orderByDesc('id')
+            ->available()
+            ->take(8)
+            ->get();
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function index()
-    {
-        return view('home');
+        return view('home', compact('categories', 'products'));
     }
 }

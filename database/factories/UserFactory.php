@@ -17,7 +17,8 @@ class UserFactory extends Factory
      * The current password being used by the factory.
      */
     protected static ?string $password;
-
+    // User::factory(5, ['password' => 'test'])->create() => record in DB
+    // User::factory(5, ['password' => 'test'])->make() => make User object
     /**
      * Define the model's default state.
      *
