@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Kyslik\ColumnSortable\Sortable;
 
@@ -49,11 +50,18 @@ class Product extends Model
     {
         return Attribute::make(
             get: function() {
-                if (Storage::has($this->attributes['thumbnail'])) {
-                    return Storage::url($this->attributes['thumbnail']);
+                $key = "products.thumbnail.{$this->attributes['thumbnail']}";
+
+                if (!Storage::has($this->attributes['thumbnail'])) {
+                    return $this->attributes['thumbnail'];
                 }
 
-                return $this->attributes['thumbnail'];
+                if (!Cache::has($key)) {
+                    $link = Storage::temporaryUrl($this->attributes['thumbnail'], now()->addMinutes(10));
+                    Cache::put($key, $link, 570);
+                }
+
+                return Cache::get($key);
             }
         );
     }
