@@ -18,7 +18,7 @@ class FileStorageService implements Contract\FileStorageServiceContract
         $additionalPath = !empty($additionalPath) ? $additionalPath . '/' : '';
 
         $filePath = "public/$additionalPath" . Str::random() . '_' . time() . '.' . $file->getClientOriginalExtension();
-        Storage::disk('s3')->put($filePath, File::get($file));
+        Storage::put($filePath, File::get($file));
         Storage::setVisibility($filePath, 'public');
 
         return $filePath;
