@@ -15,6 +15,12 @@
 
     <link href="{{ asset('css/iziToast.css') }}" rel="stylesheet">
 
+    @auth
+        <script>
+            window.userID = {{ auth()->id() }}
+        </script>
+    @endauth
+
     <!-- Scripts -->
     @vite(['resources/scss/app.scss', 'resources/js/app.js'])
 </head>
