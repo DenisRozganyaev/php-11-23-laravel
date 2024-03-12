@@ -206,6 +206,6 @@ return [
         'account' => [
             'edit' => 'edit account',
             'delete' => 'delete account',
-        ]
-    ]
+        ],
+    ],
 ];
