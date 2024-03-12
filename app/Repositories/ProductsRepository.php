@@ -4,20 +4,26 @@ namespace App\Repositories;
 
 use App\Http\Requests\Products\CreateProductRequest;
 use App\Models\Product;
+use App\Repositories\Contracts\ImageRepositoryContract;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class ProductsRepository implements Contracts\ProductsRepositoryContract
 {
+    public function __construct(protected ImageRepositoryContract $imageRepo)
+    {
+    }
 
     public function create(CreateProductRequest $request): Product|false
     {
         try {
             DB::beginTransaction();
+
             $data = $this->formRequestData($request);
             $data['attributes'] = $this->addSlugToAttributes($data['attributes']);
-
             $product = Product::create($data['attributes']);
+
+            $this->setProductData($product, $data);
 
             DB::commit();
 
@@ -27,6 +33,24 @@ class ProductsRepository implements Contracts\ProductsRepositoryContract
             logs()->warning($exception);
             return false;
         }
+    }
+
+    protected function setProductData(Product $product, array $data): void
+    {
+        if ($product->categories()->exists()) {
+            $product->categories()->detach();
+        }
+
+        if (!empty($data['categories'])) {
+            $product->categories()->attach($data['categories']);
+        }
+
+        $this->imageRepo->attach(
+            $product,
+            'images',
+                $data['attributes']['images'] ?? [],
+            $product->slug
+        );
     }
 
     protected function formRequestData(CreateProductRequest $request): array
@@ -40,8 +64,8 @@ class ProductsRepository implements Contracts\ProductsRepositoryContract
     protected function addSlugToAttributes(array $attributes): array
     {
         return array_merge(
-            $attributes,
-            ['slug' => Str::of($attributes['title'])->slug()->value()]
+            ['slug' => Str::of($attributes['title'])->slug()->value()],
+            $attributes
         );
     }
 }

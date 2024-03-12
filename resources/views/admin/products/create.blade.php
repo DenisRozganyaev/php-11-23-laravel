@@ -115,7 +115,10 @@
                             <div class="row mb-3">
                                 <label for="thumbnail" class="col-md-4 col-form-label text-md-end">{{ __('Thumbnail') }}</label>
 
-                                <div class="col-md-6">
+                                <div class="col-md-12 mb-4 d-flex align-items-center justify-content-center">
+                                    <img src="#" id="thumbnail-preview" style="width: 50%">
+                                </div>
+                                <div class="col-md-12">
                                     <input id="thumbnail" type="file" class="form-control @error('thumbnail') is-invalid @enderror" name="thumbnail" required>
 
                                     @error('thumbnail')
@@ -123,6 +126,25 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="images" class="col-md-4 col-form-label text-md-end">{{ __('Images') }}</label>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="row images-wrapper"></div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <input id="images" type="file" class="form-control @error('images') is-invalid @enderror" name="images[]" multiple>
+
+                                        @error('images')
+                                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
 
@@ -140,3 +162,7 @@
         </div>
     </div>
 @endsection
+
+@push('footer-js')
+    @vite(['resources/js/admin/images-preview.js'])
+@endpush
