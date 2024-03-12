@@ -9,6 +9,7 @@ use Database\Seeders\PermissionAndRolesSeeder;
 use Database\Seeders\UsersSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Tests\CreatesApplication;
 
 class CategoriesTest extends TestCase
 {
@@ -41,7 +42,9 @@ class CategoriesTest extends TestCase
     public function test_does_not_allow_see_categories_with_role_customer()
     {
         $response = $this->actingAs($this->getUser(Roles::CUSTOMER))
-            ->get(route('admin.categories.index'));
+            ->get(
+                route("admin.categories.index")
+            );
 
         $response->assertStatus(403);
     }
