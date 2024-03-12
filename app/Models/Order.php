@@ -26,7 +26,7 @@ class Order extends Model
         'total',
         'created_at',
         'updated_at',
-        'vendor_order_id'
+        'vendor_order_id',
     ];
 
     public function status(): BelongsTo

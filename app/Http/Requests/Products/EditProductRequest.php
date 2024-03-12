@@ -34,7 +34,7 @@ class EditProductRequest extends FormRequest
             'new_price' => ['nullable', 'numeric', 'min:1'],
             'quantity' => ['required', 'numeric', 'min:0'],
             'thumbnail' => ['image:jpeg,png'],
-            'categories.*' => ['required', 'numeric', 'exists:' . Category::class . ',id'],
+            'categories.*' => ['required', 'numeric', 'exists:'.Category::class.',id'],
         ];
     }
 }

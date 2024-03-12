@@ -5,7 +5,6 @@ namespace App\Jobs\Products;
 use App\Models\Product;
 use App\Notifications\PriceDownNotification;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -30,7 +29,7 @@ class PriceDownJob implements ShouldQueue
      */
     public function handle(): void
     {
-        $this->product->followers()->wherePivot('exist', true)->chunk(3, function(Collection $users) {
+        $this->product->followers()->wherePivot('exist', true)->chunk(3, function (Collection $users) {
             logs()->info('Price send');
             sleep(5);
             Notification::send(

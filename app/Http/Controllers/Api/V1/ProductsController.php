@@ -31,8 +31,8 @@ class ProductsController extends Controller
                     'page' => $products->currentPage(),
                     'to' => $products->lastPage(),
                     'path' => $products->path(),
-                    'next' => $products->nextPageUrl()
-                ]
+                    'next' => $products->nextPageUrl(),
+                ],
             ]);
     }
 

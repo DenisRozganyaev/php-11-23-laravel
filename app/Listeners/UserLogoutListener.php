@@ -13,7 +13,7 @@ class UserLogoutListener
     public function handle(Logout $event): void
     {
         if (Cart::instance('cart')->count() > 0) {
-            Cart::instance('cart')->store($event->user->id . "_cart");
+            Cart::instance('cart')->store($event->user->id.'_cart');
         }
     }
 }
