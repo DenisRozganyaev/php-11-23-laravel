@@ -9,7 +9,6 @@ use Database\Seeders\PermissionAndRolesSeeder;
 use Database\Seeders\UsersSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use Tests\CreatesApplication;
 
 class CategoriesTest extends TestCase
 {
@@ -43,7 +42,7 @@ class CategoriesTest extends TestCase
     {
         $response = $this->actingAs($this->getUser(Roles::CUSTOMER))
             ->get(
-                route("admin.categories.index")
+                route('admin.categories.index')
             );
 
         $response->assertStatus(403);
