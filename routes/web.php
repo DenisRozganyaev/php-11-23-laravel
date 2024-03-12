@@ -25,4 +25,6 @@ Route::name('admin.')->prefix('admin')->middleware(['role:admin|moderator'])->gr
     Route::get('dashboard', \App\Http\Controllers\Admin\DashboardController::class)->name('dashboard'); // admin.dashboard
     Route::resource('categories', \App\Http\Controllers\Admin\CategoriesController::class)
         ->except(['show']);
+    Route::resource('products', \App\Http\Controllers\Admin\ProductsController::class)
+        ->except(['show']);
 });
