@@ -23,7 +23,8 @@
         "pusher/pusher-php-server": "^7.2",
         "spatie/laravel-permission": "^6.3",
         "srmklive/paypal": "^3.0",
-        "fakerphp/faker": "^1.9.1"
+        "fakerphp/faker": "^1.9.1",
+        "ext-redis": "*"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.13",
