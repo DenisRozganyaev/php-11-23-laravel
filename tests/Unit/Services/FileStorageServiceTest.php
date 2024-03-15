@@ -50,6 +50,8 @@ class FileStorageServiceTest extends TestCase
     {
         $file = UploadedFile::fake()->image($fileName);
 
+
+        // test
         return $this->service->upload($file, $additionPath);
     }
 }
