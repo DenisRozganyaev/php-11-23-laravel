@@ -22,11 +22,11 @@
         "league/flysystem-aws-s3-v3": "^3.0",
         "pusher/pusher-php-server": "^7.2",
         "spatie/laravel-permission": "^6.3",
-        "srmklive/paypal": "^3.0"
+        "srmklive/paypal": "^3.0",
+        "fakerphp/faker": "^1.9.1"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.13",
-        "fakerphp/faker": "^1.9.1",
         "laravel/pint": "^1.13",
         "laravel/sail": "^1.18",
         "mockery/mockery": "^1.4.4",
