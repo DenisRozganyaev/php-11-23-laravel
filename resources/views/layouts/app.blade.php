@@ -18,7 +18,7 @@
     @auth
         <script>
             window.userID = {{ auth()->id() }}
-            window.baseUrl = {{ url('/') }}
+            window.baseUrl = "{{ url('/') }}"
         </script>
     @endauth
 
