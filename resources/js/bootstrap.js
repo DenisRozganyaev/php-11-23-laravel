@@ -20,20 +20,20 @@ window.$ = $;
  * allows your team to easily build robust real-time web applications.
  */
 
-import Echo from 'laravel-echo';
-import Pusher from 'pusher-js';
-window.Pusher = Pusher;
-
-window.Echo = new Echo({
-    broadcaster: 'pusher',
-    key: import.meta.env.VITE_PUSHER_APP_KEY,
-    cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER ?? 'mt1',
-    forceTLS: false,
-});
-Pusher.logToConsole = true;
-
-console.log('window.userID', window.userID)
-window.Echo.private(`App.Models.User.${window.userID}`)
-    .listen('UserNotify', (e) => {
-        alert(e.message)
-    })
+// import Echo from 'laravel-echo';
+// import Pusher from 'pusher-js';
+// window.Pusher = Pusher;
+//
+// window.Echo = new Echo({
+//     broadcaster: 'pusher',
+//     key: import.meta.env.VITE_PUSHER_APP_KEY,
+//     cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER ?? 'mt1',
+//     forceTLS: false,
+// });
+// Pusher.logToConsole = true;
+//
+// console.log('window.userID', window.userID)
+// window.Echo.private(`App.Models.User.${window.userID}`)
+//     .listen('UserNotify', (e) => {
+//         alert(e.message)
+//     })
