@@ -40,7 +40,7 @@ paypal.Buttons({
 
     // Call your server to set up the transaction
     createOrder: function (data, actions) {
-        return axios.post('/ajax/paypal/order/create/', getFields())
+        return axios.post(window.location.protocol + '//' + window.location.hostname + '/ajax/paypal/order/create/', getFields())
             .then(function (res) {
                 return res.data.vendor_order_id
             })
@@ -49,7 +49,7 @@ paypal.Buttons({
     // Call your server to finalize the transaction
     onApprove: function (data, actions) {
         console.log('data', data)
-        return axios.post(`/ajax/paypal/order/${data.orderID}/capture/`)
+        return axios.post(window.location.protocol + '//' + window.location.hostname + `/ajax/paypal/order/${data.orderID}/capture/`)
             .then(function (res) {
                 return res.data;
             }).then(function (orderData) {
