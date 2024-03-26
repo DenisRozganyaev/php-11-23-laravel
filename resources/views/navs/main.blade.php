@@ -20,6 +20,15 @@
 
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <form action="{{route('search')}}">
+                        @csrf
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" name="query" placeholder="Search product" aria-describedby="button-addon2">
+                            <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+                        </div>
+                    </form>
+                </li>
                 <!-- Authentication Links -->
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('cart.index') }}">
