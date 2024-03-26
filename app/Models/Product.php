@@ -12,14 +12,26 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Kyslik\ColumnSortable\Sortable;
+use Laravel\Scout\Searchable;
 
 class Product extends Model
 {
-    use HasFactory, Sortable;
+    use HasFactory, Sortable, Searchable;
 
     protected $fillable = ['slug', 'title', 'description', 'SKU', 'price', 'new_price', 'quantity', 'thumbnail'];
 
     public $sortable = ['id', 'title', 'SKU', 'price', 'quantity'];
+
+    public function toSearchableArray()
+    {
+        return [
+            'id' => (int) $this->id,
+            'title' => $this->title,
+            'description' => $this->description,
+            'SKU' => $this->SKU,
+            'quantity' => (int) $this->quantity,
+        ];
+    }
 
     public function categories(): BelongsToMany
     {

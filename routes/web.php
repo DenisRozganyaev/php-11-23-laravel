@@ -22,6 +22,8 @@ Route::get('/', \App\Http\Controllers\HomeController::class)->name('home');
 Route::resource('products', \App\Http\Controllers\ProductsController::class)->only(['index', 'show']);
 Route::resource('categories', \App\Http\Controllers\CategoriesController::class)->only(['index', 'show']);
 
+Route::get('search', \App\Http\Controllers\SearchController::class)->name('search');
+
 Auth::routes();
 
 Route::name('ajax.')->prefix('ajax')->middleware('auth')->group(function () {
